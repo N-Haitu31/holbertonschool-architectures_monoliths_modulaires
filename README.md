@@ -1,76 +1,76 @@
-# Monolithic and Modular Monolith Architectures: CampusLibrary
+# Architectures monolithiques et monolithes modulaires : CampusLibrary
 
-A conceptual project on **monolithic** and **modular monolith** architectures. No code is involved: the work is about understanding concepts, analyzing architectures, reading diagrams, and designing diagrams.
+Un projet conceptuel sur les architectures **monolithiques** et **monolithiques modulaires**. Aucun code n'est demandé : le travail porte sur la compréhension des concepts, l'analyse d'architectures, la lecture de diagrammes et la conception de diagrammes.
 
-## Goals
+## Objectifs
 
-By the end of the project, you should be able to:
+À la fin du projet, vous devez être capable de :
 
-- Define a monolith and a modular monolith, and explain what a deployment unit is
-- Identify the advantages, limits, and suitable contexts of a monolith
-- Distinguish a module from a microservice, and modularity from deployment
-- Explain cohesion, coupling, internal dependencies, and circular dependencies
-- Understand logical data ownership on top of a shared physical database
-- Tell a visible fact from an assumption when reading a diagram
-- Design a monolith diagram and a modular monolith diagram, and evolve it with new constraints
+- Définir un monolithe et un monolithe modulaire, et expliquer ce qu'est une unité de déploiement
+- Identifier les avantages, les limites et les contextes adaptés d'un monolithe
+- Distinguer un module d'un microservice, et la modularité du déploiement
+- Expliquer la cohésion, le couplage, les dépendances internes et les dépendances circulaires
+- Comprendre la propriété logique des données au-dessus d'une base de données physique commune
+- Distinguer une information visible d'une hypothèse lors de la lecture d'un diagramme
+- Concevoir un diagramme de monolithe et un diagramme de monolithe modulaire, et le faire évoluer face à de nouvelles contraintes
 
-## Key concepts
+## Concepts clés
 
-| Concept | Summary |
+| Concept | Résumé |
 |---|---|
-| **Monolith** | One main application deployed as a single unit. It can still contain many features, layers, modules, user types, and external integrations. |
-| **Modular monolith** | A monolith that stays one deployment unit but is organized into business modules with explicit internal boundaries. |
-| **Module** | A cohesive group of responsibilities, named after the business (e.g. `Accounts`, `Catalog`), not after technical roles (`Utils`, `Helpers`). |
-| **Cohesion** | How closely related the responsibilities inside a module are. High cohesion is preferred. |
-| **Coupling** | The level of dependency between modules. Dependencies should be necessary, explicit, and limited. |
-| **Circular dependency** | A dependency chain that loops back to its start (A → B → C → A). It makes the system harder to understand and change. |
-| **Logical data ownership** | Each module owns its data, even when all modules share one physical database. |
+| **Monolithe** | Une application principale déployée comme une seule unité. Elle peut tout de même contenir de nombreuses fonctionnalités, couches, modules, types d'utilisateurs et intégrations externes. |
+| **Monolithe modulaire** | Un monolithe qui reste une seule unité de déploiement mais qui est organisé en modules métier avec des frontières internes explicites. |
+| **Module** | Un groupe cohérent de responsabilités, nommé d'après le métier (par exemple `Comptes`, `Catalogue`), et non d'après des rôles techniques (`Utils`, `Helpers`). |
+| **Cohésion** | Le degré de proximité entre les responsabilités d'un même module. Une forte cohésion est recherchée. |
+| **Couplage** | Le niveau de dépendance entre les modules. Les dépendances doivent être nécessaires, explicites et limitées. |
+| **Dépendance circulaire** | Une chaîne de dépendances qui revient à son point de départ (A → B → C → A). Elle rend le système plus difficile à comprendre et à faire évoluer. |
+| **Propriété logique des données** | Chaque module est propriétaire de ses données, même lorsque tous les modules partagent une même base de données physique. |
 
-**Monolith vs modular monolith**
+**Monolithe contre monolithe modulaire**
 
-| | Monolith | Modular monolith |
+| | Monolithe | Monolithe modulaire |
 |---|---|---|
-| Deployment | Single unit | Single unit |
-| Internal organization | Variable | Explicit business modules |
-| Dependencies | Not necessarily visible | Visible and controlled |
-| Data | Not necessarily structured | Logical ownership per module |
-| Scaling | Usually global | Usually global |
+| Déploiement | Une seule unité | Une seule unité |
+| Organisation interne | Variable | Modules métier explicites |
+| Dépendances | Pas nécessairement visibles | Visibles et maîtrisées |
+| Données | Pas nécessairement structurées | Propriété logique par module |
+| Montée en charge | Généralement globale | Généralement globale |
 
-**Possible advantages of a monolith:** simple deployment, simple internal communication, easy operations for small teams, limited initial infrastructure.
+**Avantages possibles d'un monolithe :** déploiement simple, communication interne simple, exploitation facile pour de petites équipes, infrastructure initiale limitée.
 
-**Possible limits:** global deployment and scaling, growing internal complexity, many dependencies, team coordination, wide impact of failures.
+**Limites possibles :** déploiement et montée en charge globaux, complexité interne croissante, nombreuses dépendances, coordination entre équipes, impact étendu des défaillances.
 
-> There is no universal best architecture. The right choice depends on needs, constraints, responsibilities, dependencies, and trade-offs.
+> Il n'existe pas d'architecture universellement meilleure. Le bon choix dépend des besoins, des contraintes, des responsabilités, des dépendances et des compromis.
 
-## Practical case: CampusLibrary
+## Cas pratique : CampusLibrary
 
-A university wants to build **CampusLibrary**, a library management application, delivered as one main deployment unit.
+Une université souhaite créer **CampusLibrary**, une application de gestion de bibliothèque, livrée comme une unité de déploiement principale.
 
-**Students** can browse the catalog, check document availability, reserve a document, view their loans, and renew a loan when allowed.
+**Les étudiants** peuvent consulter le catalogue, vérifier la disponibilité d'un document, réserver un document, consulter leurs emprunts et renouveler un emprunt lorsque cela est autorisé.
 
-**Librarians** can add and edit documents, record loans and returns, view reservations, and manage some penalties.
+**Les bibliothécaires** peuvent ajouter et modifier des documents, enregistrer des emprunts et des retours, consulter les réservations et gérer certaines pénalités.
 
-**The application handles:** accounts, roles, catalog, loans, returns, reservations, penalties, notifications, and traceability of sensitive operations.
+**L'application gère :** les comptes, les rôles, le catalogue, les prêts, les retours, les réservations, les pénalités, les notifications et la traçabilité des opérations sensibles.
 
-**Constraints:** one main deployment unit; no imposed technology, language, or framework; no class diagram and no code; clear responsibilities; visible key dependencies; external systems clearly distinguished.
+**Contraintes :** une seule unité de déploiement principale ; aucune technologie, aucun langage ni aucun framework imposé ; aucun diagramme de classes et aucun code ; responsabilités lisibles ; dépendances importantes visibles ; systèmes externes clairement distingués.
 
-## Deliverables
+## Livrables
 
-Three diagrams, stored in the [`diagrammes/`](diagrammes) directory:
+Trois diagrammes, stockés dans le répertoire [`diagrammes/`](diagrammes) :
 
-| # | File | Description |
+| # | Fichier | Description |
 |---|---|---|
-| 1 | `diagramme_1_monolith.jpg` | Global view of CampusLibrary with no internal structure. Shows Student, Librarian, CampusLibrary, Storage, and the external notification service. |
-| 2 | `diagramme_2_modulaire_simple.jpg` | Modular view. Shows the CampusLibrary boundary, the business modules inside it (accounts and roles, catalog, loans and returns, reservations, penalties, notifications, audit), actors and notification provider outside, and a common deployment unit. |
-| 3 | `diagramme_3_modulaire_avance.jpg` | Adds the main dependencies between modules and the logical data ownership (Accounts, Catalog, Loans, Reservations, Penalties, and Audit data) on a shared physical database. |
+| 1 | `diagramme_1_monolith.jpg` | Vue globale de CampusLibrary sans structure interne. Montre l'Étudiant, le Bibliothécaire, CampusLibrary, le Stockage et le service externe de notification. |
+| 2 | `diagramme_2_modulaire_simple.jpg` | Vue modulaire. Montre la frontière de CampusLibrary, les modules métier à l'intérieur (comptes et rôles, catalogue, prêts et retours, réservations, pénalités, notifications, audit), les acteurs et le fournisseur de notification à l'extérieur, et une unité de déploiement commune. |
+| 3 | `diagramme_3_modulaire_avance.jpg` | Ajoute les principales dépendances entre modules et la propriété logique des données (données Comptes, Catalogue, Prêts, Réservations, Pénalités et Audit) sur une base de données physique commune. |
 
-### Previews
+### Aperçus
 
-![Diagram 1 - Monolith](diagrammes/diagramme_1_monolith.jpg)
-![Diagram 2 - Simple modular monolith](diagrammes/diagramme_2_modulaire_simple.jpg)
-![Diagram 3 - Advanced modular monolith](diagrammes/diagramme_3_modulaire_avance.jpg)
+![Diagramme 1 - Monolithe](diagrammes/diagramme_1_monolith.jpg)
+![Diagramme 2 - Monolithe modulaire simple](diagrammes/diagramme_2_modulaire_simple.jpg)
+![Diagramme 3 - Monolithe modulaire avancé](diagrammes/diagramme_3_modulaire_avance.jpg)
 
-## Repository structure
+## Structure du dépôt
 
 ```text
 holbertonschool-architectures_monoliths_modulaires/
@@ -81,18 +81,18 @@ holbertonschool-architectures_monoliths_modulaires/
     └── diagramme_3_modulaire_avance.jpg
 ```
 
-## Tips for the diagrams
+## Conseils pour les diagrammes
 
-- Start with the actors, then the system, then its responsibilities
-- Group closely related responsibilities and use business names
-- Draw only useful dependencies, with clear arrow directions
-- Distinguish modules, data, and external systems
-- Do not assume modules are independent services, or that a shared database prevents modularity
-- Do not add technologies that were not requested
+- Commencer par les acteurs, puis le système, puis ses responsabilités
+- Regrouper les responsabilités étroitement liées et utiliser des noms métier
+- Ne dessiner que les dépendances utiles, avec un sens de flèche clair
+- Distinguer les modules, les données et les systèmes externes
+- Ne pas supposer que les modules sont des services indépendants, ni qu'une base de données commune empêche la modularité
+- Ne pas ajouter de technologies qui n'ont pas été demandées
 
-## Resources
+## Ressources
 
-- [Microsoft Learn: Common web application architectures](https://learn.microsoft.com/fr-fr/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures) (FR)
-- [Martin Fowler: Monolith First](https://martinfowler.com/bliki/MonolithFirst.html) (EN)
-- [C4 Model: Diagrams](https://c4model.com/diagrams) (EN)
-- Microsoft Learn: Modular monoliths (FR)
+- [Microsoft Learn : Architectures d'applications web courantes](https://learn.microsoft.com/fr-fr/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures) (FR)
+- [Martin Fowler : Monolith First](https://martinfowler.com/bliki/MonolithFirst.html) (EN)
+- [C4 Model : Diagrams](https://c4model.com/diagrams) (EN)
+- Microsoft Learn : Monolithes modulaires (FR)
